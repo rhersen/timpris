@@ -9,21 +9,23 @@
 </script>
 
 <div>
-	<h1>Elpris per timme {data.date}</h1>
-	<ol>
-		{#each data.prices as { Value }}
-			<li style="color: {color(Value)}">{Value}</li>
-		{/each}
-	</ol>
+	<h1>Elpris per timme</h1>
+	<h2>{data.date}</h2>
+	{#each data.prices as { Value }, i}
+		<div style="color: {color(Value)}">
+			{i.toString().padStart(2, 0)}–{(i + 1).toString().padStart(2, 0)}
+			{Value}
+		</div>
+	{/each}
 </div>
 
 <style>
-	div {
+	:global(body) {
+		color: white;
 		background: black;
-		font-family: sans-serif;
 	}
 
-	h1 {
-		color: white;
+	div {
+		font-family: sans-serif;
 	}
 </style>
