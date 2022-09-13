@@ -1,9 +1,15 @@
 export async function load() {
+	const HOURS = 60 * 60 * 1000;
+	const dateTimeFormat = new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short' });
+	console.log(dateTimeFormat.format(Date.now()));
 	const response = await fetch(
-		'https://www.vattenfall.se/api/price/spot/pricearea/2022-09-12/2022-09-12/SN3'
+		`https://www.vattenfall.se/api/price/spot/pricearea/${dateTimeFormat.format(
+			Date.now() - 24 * HOURS
+		)}/${dateTimeFormat.format(Date.now() + 24 * HOURS)}/SN3`
 	);
+	const prices = await response.json();
+	console.log(prices);
 	return {
-		date: '2022-09-12',
-		prices: await response.json()
+		prices: prices.map((price) => ({ ...price, date: new Date(Date.parse(price.TimeStamp)) }))
 	};
 }
