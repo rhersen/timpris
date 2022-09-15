@@ -13,13 +13,15 @@
 	"plugins": ["svelte3"],
 	"overrides": [{ "files": ["*.svelte"], "processor": "svelte3/svelte3" }],
 	"rules": {
+		"curly": ["warn", "multi"],
 		"object-shorthand": "warn",
 		"operator-assignment": "warn",
+		"no-else-return": "warn",
+		"no-lonely-if": "warn",
+		"no-unneeded-ternary": "warn",
 		"prefer-arrow-callback": "warn",
 		"prefer-const": "warn",
 		"prefer-destructuring": "warn",
-		"prefer-template": "warn",
-		"no-else-return": "warn",
-		"curly": ["warn", "multi"]
+		"prefer-template": "warn"
 	}
 }

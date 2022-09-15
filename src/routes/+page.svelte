@@ -9,7 +9,7 @@
 		{#if date.getHours() === 0}
 			<h2>{today(date)}</h2>
 		{/if}
-		<div style="color: {color(Value)}" class:current={current(date)}>
+		<div style="color: {color(Value, data.limits)}" class:current={current(date)}>
 			{date.getHours().toString().padStart(2, '0')}–{(date.getHours() + 1)
 				.toString()
 				.padStart(2, '0')}

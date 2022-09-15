@@ -1,7 +1,13 @@
-export function color(price) {
-	if (price < 64) return 'hsl(120deg 100% 65%)';
-	if (price > 85) return 'hsl(0deg 100% 65%)';
-	return 'hsl(60deg 100% 65%)';
+export function colorLimits(prices) {
+	const values = prices.map(({ Value }) => Value);
+	values.sort((a, b) => a - b);
+	return [values[values.length / 3], values[(values.length * 2) / 3]];
+}
+
+export function color(price, [limit1, limit2]) {
+	if (price < limit1) return 'hsl(120deg 100% 65%)';
+	if (price < limit2) return 'hsl(60deg 100% 65%)';
+	return 'hsl(0deg 100% 65%)';
 }
 
 export function today(date) {
