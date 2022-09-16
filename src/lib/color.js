@@ -24,5 +24,5 @@ export function current(date) {
 	const today = now.toLocaleDateString();
 	if (then < today) return false;
 	if (then > today) return false;
-	return date.getHours() === now.getHours();
+	return date.getHours() + date.getTimezoneOffset() / 60 === now.getHours();
 }
