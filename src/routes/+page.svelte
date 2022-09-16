@@ -3,6 +3,8 @@
 	export let data;
 	export let prices = data.prices.map((price) => ({
 		value: price.Value,
+		timeStamp: price.TimeStamp,
+		parsed: Date.parse(price.TimeStamp),
 		date: new Date(Date.parse(price.TimeStamp))
 	}));
 
@@ -13,12 +15,14 @@
 
 <div>
 	<h1>Elpris per timme</h1>
-	{#each prices as { date, value }}
+	{#each prices as { value, timeStamp, parsed, date }}
 		{#if date.getHours() === 0}
 			<h2>{today(date)}</h2>
 		{/if}
 		<div style="color: {color(value, data.limits)}" class:current={current(date)}>
 			{pad(date.getHours())}–{pad(date.getHours() + 1)}
+			{timeStamp}
+			{parsed}
 			{value}
 		</div>
 	{/each}
