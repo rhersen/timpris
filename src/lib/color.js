@@ -1,7 +1,7 @@
 export function colorLimits(prices) {
 	const values = prices.map(({ Value }) => Value);
 	values.sort((a, b) => a - b);
-	return [values[values.length / 3], values[(values.length * 2) / 3]];
+	return [values[Math.round(values.length / 3)], values[Math.round((values.length * 2) / 3)]];
 }
 
 export function color(price, [limit1, limit2]) {
