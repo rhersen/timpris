@@ -10,6 +10,7 @@ export async function load() {
 		)}/${dateTimeFormat.format(Date.now() + 24 * HOURS)}/SN3`
 	);
 
-	const prices = await response.json();
+	const json = await response.json();
+	const prices = json.filter(({ Value }) => Value);
 	return { prices, limits: colorLimits(prices) };
 }
