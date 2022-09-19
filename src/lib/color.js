@@ -4,10 +4,8 @@ export function colorLimits(prices) {
 	return [values[Math.round(values.length / 3)], values[Math.round((values.length * 2) / 3)]];
 }
 
-export function color(price, [limit1, limit2]) {
-	if (price < limit1) return 'hsl(120deg 100% 65%)';
-	if (price < limit2) return 'hsl(60deg 100% 65%)';
-	return 'hsl(0deg 100% 65%)';
+export function color(price) {
+	return `hsl(${165 - price / 2}deg 100% 65%)`;
 }
 
 export function today(date) {
