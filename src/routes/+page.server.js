@@ -1,5 +1,3 @@
-import { colorLimits } from '$lib/color.js';
-
 export async function load() {
 	const HOURS = 60 * 60 * 1000;
 	const dateTimeFormat = new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short' });
@@ -11,6 +9,5 @@ export async function load() {
 	);
 
 	const json = await response.json();
-	const prices = json.filter(({ Value }) => Value);
-	return { prices, limits: colorLimits(prices) };
+	return { prices: json.filter(({ Value }) => Value) };
 }
