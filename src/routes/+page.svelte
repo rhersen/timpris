@@ -5,7 +5,6 @@
 
 <div>
 	<h1>Elpris per timme</h1>
-	<h2>https://www.vattenfall.se/api</h2>
 	{#each data.prices as { color, day, fromHour, toHour, value }}
 		{#if fromHour === '00'}
 			<h2>{today(day)}</h2>
