@@ -1,19 +1,18 @@
 <script>
-	import { color, current, today } from '$lib/color.js';
+	import { current, today } from '$lib/color.js';
 	export let data;
 </script>
 
 <div>
 	<h1>Elpris per timme</h1>
-	{#each data.prices as { TimeStamp, Value }, i}
-		{#if /T00:/.test(TimeStamp)}
-			<h2>{today(TimeStamp)}</h2>
+	<h2>https://www.vattenfall.se/api</h2>
+	{#each data.prices as { color, day, fromHour, toHour, value }}
+		{#if fromHour === '00'}
+			<h2>{today(day)}</h2>
 		{/if}
-		<div style="color: {color(Value, data.limits)}" class:current={current(TimeStamp)}>
-			{TimeStamp.substring(11, 13)}–{data.prices[i + 1]
-				? data.prices[i + 1].TimeStamp.substring(11, 13)
-				: '24'}
-			{Value}
+		<div style="color: {color}" class:current={current(day, fromHour)}>
+			{fromHour}–{toHour}
+			{value}
 		</div>
 	{/each}
 </div>
