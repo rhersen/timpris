@@ -13,7 +13,7 @@
 	<svg
 		viewBox="0 0 804 804"
 		on:mousedown={function (evt) {
-			hour = Math.round(evt.offsetX / 30 - 3);
+			hour = Math.round(evt.offsetX / 30 - 2.5);
 			console.log(hour);
 		}}
 	>
@@ -26,8 +26,8 @@
 			{#if i > 0}
 				<line
 					class="connect"
-					x1={90 + 30 * (i - 1)}
-					x2={90 + 30 * i}
+					x1={75 + 30 * (i - 1)}
+					x2={75 + 30 * i}
 					y1={y(data.prices[i - 1].value)}
 					y2={y(value)}
 				/>
@@ -35,10 +35,10 @@
 		{/each}
 
 		{#each data.prices as { color, day, fromHour, toHour, value }, i}
-			<circle cx={90 + 30 * i} cy={y(value)} r="8" fill={color} />
+			<circle cx={75 + 30 * i} cy={y(value)} r="8" fill={color} />
 		{/each}
 
-		<g class="tooltip" transform={`translate(${90 + (hour - 1) * 30},650)`}>
+		<g class="tooltip" transform={`translate(${75 + (hour - 1) * 30},650)`}>
 			<rect />
 			<text x="40" y="20">{data.prices[hour].fromHour}–{data.prices[hour].toHour}</text>
 			<text x="40" y="40">{data.prices[hour].value} öre</text>
