@@ -1,12 +1,12 @@
 import { color } from '$lib/color.js';
 
-export function storuman(json) {
-	const nonzero = json.priceEntries.filter(({ value }) => value);
-	const hours = nonzero.map(({ hourLocal }) =>
+export function storuman(jsons) {
+	const priceEntries = jsons.flatMap(({ priceEntries }) => priceEntries);
+	const hours = priceEntries.map(({ hourLocal }) =>
 		hourLocal.length === 1 ? `0${hourLocal}` : hourLocal
 	);
 	return {
-		prices: nonzero.map(({ dateLocal, value }, i) => ({
+		prices: priceEntries.map(({ dateLocal, value }, i) => ({
 			color: color(value),
 			day: dateLocal,
 			fromHour: hours[i],

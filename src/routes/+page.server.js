@@ -7,11 +7,11 @@ export async function load() {
 	const today = dateTimeFormat.format(Date.now());
 	const tomorrow = dateTimeFormat.format(Date.now() + 24 * HOURS);
 
-	if (!HOURS) {
+	if (HOURS) {
 		const storumanResponse = await fetch(
 			`https://www.storumanenergi.se/net.seab.jsonproxy/spotprices.jsp?elarea=SE3&date=${today}`
 		);
-		return storuman(await storumanResponse.json());
+		return storuman([await storumanResponse.json()]);
 	}
 	const vattenfallResponse = await fetch(
 		`https://www.vattenfall.se/api/price/spot/pricearea/${today}/${tomorrow}/SN3`
