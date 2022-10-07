@@ -1,5 +1,4 @@
 <script>
-	import { current, today } from '$lib/color.js';
 	export let data;
 	let hour = 12;
 
@@ -10,6 +9,7 @@
 
 <div>
 	<h1>Elpris per timme</h1>
+	<h2>{data.prices[0].day}</h2>
 	<svg
 		viewBox="0 0 804 804"
 		on:mousedown={function (evt) {
@@ -38,22 +38,12 @@
 			<circle cx={90 + 30 * i} cy={y(value)} r="8" fill={color} />
 		{/each}
 
-		<g class="tooltip" transform={`translate(${90 + (hour - 1) * 30},500)`}>
+		<g class="tooltip" transform={`translate(${90 + (hour - 1) * 30},650)`}>
 			<rect />
-			<text x="40" y="20">{hour}</text>
+			<text x="40" y="20">{data.prices[hour].fromHour}–{data.prices[hour].toHour}</text>
 			<text x="40" y="40">{data.prices[hour].value} öre</text>
 		</g>
 	</svg>
-
-	{#each data.prices as { color, day, fromHour, toHour, value }}
-		{#if fromHour === '00'}
-			<h2>{today(day)}</h2>
-		{/if}
-		<div style="color: {color}" class:current={current(day, fromHour)}>
-			{fromHour}–{toHour}
-			{value}
-		</div>
-	{/each}
 </div>
 
 <style>
@@ -88,11 +78,5 @@
 
 	div {
 		font-family: sans-serif;
-	}
-
-	div.current {
-		font-weight: bold;
-		font-size: larger;
-		border: solid;
 	}
 </style>
