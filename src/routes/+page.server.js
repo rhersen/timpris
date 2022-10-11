@@ -1,20 +1,23 @@
 import { storuman, vattenfall } from '$lib/transform.js';
 
+const HOURS = 60 * 60 * 1000;
 const dateTimeFormat = new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short' });
 
 export async function load() {
 	const today = dateTimeFormat.format(Date.now());
+	const tomorrow = dateTimeFormat.format(Date.now() + 24 * HOURS);
 
 	console.log('fetching storuman/tomorrow');
-	const todayResponse = await fetch(storumanUrl(today));
+	const tomorrowResponse = await fetch(storumanUrl(tomorrow));
 
-	if (todayResponse.ok) {
+	if (tomorrowResponse.ok) {
 		console.log('storuman/tomorrow ok, fetching today');
-		return storuman(await Promise.all([todayResponse].map((rsp) => rsp.json())));
+		const todayResponse = await fetch(storumanUrl(today));
+		return storuman(await Promise.all([todayResponse, tomorrowResponse].map((rsp) => rsp.json())));
 	}
 
 	console.log('fetching vattenfall');
-	const response = await fetch(vattenfallUrl(today, today));
+	const response = await fetch(vattenfallUrl(today, tomorrow));
 
 	return vattenfall(await response.json());
 }
