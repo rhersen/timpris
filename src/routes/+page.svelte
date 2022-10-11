@@ -38,10 +38,10 @@
 			<circle cx={75 + 30 * i} cy={y(value)} r="8" fill={color} />
 		{/each}
 
-		<g class="tooltip" transform={`translate(${75 + (hour - 1) * 30},650)`}>
+		<g class="tooltip" transform={`translate(${65 + (hour - 1) * 30},${680 - prices[hour].value})`}>
 			<rect />
-			<text x="40" y="20">{prices[hour].fromHour}–{prices[hour].toHour}</text>
-			<text x="40" y="40">{prices[hour].value} öre</text>
+			<text x="40" y={20}>{prices[hour].fromHour}–{prices[hour].toHour}</text>
+			<text x="40" y={40}>{prices[hour].value} öre</text>
 		</g>
 	</svg>
 </div>
