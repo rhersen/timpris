@@ -18,8 +18,10 @@ export async function load() {
 
 	console.log('fetching vattenfall');
 	const response = await fetch(vattenfallUrl(today, tomorrow));
+	if (response.ok) return vattenfall(await response.json());
 
-	return vattenfall(await response.json());
+	console.log('vattenfall not ok, fetching storuman/today');
+	return storuman(await Promise.all([await fetch(storumanUrl(today))].map((rsp) => rsp.json())));
 }
 
 function storumanUrl(date) {
