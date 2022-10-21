@@ -39,7 +39,7 @@
 		{/each}
 
 		<g class="tooltip" transform={`translate(${65 + (hour - 1) * 30},${680 - prices[hour].value})`}>
-			<rect />
+			<polygon class="bg" points="0,48 32,48 40,64 48,48 80,48 80,0 0,0" />
 			<text x="40" y={20}>{prices[hour].fromHour}–{prices[hour].toHour}</text>
 			<text x="40" y={40}>{prices[hour].value} öre</text>
 		</g>
@@ -66,10 +66,8 @@
 		stroke-width: 3;
 	}
 
-	.tooltip rect {
-		width: 80px;
-		height: 48px;
-		fill: #ddd;
+	.tooltip .bg {
+		fill: #bbbb;
 	}
 
 	.tooltip text {
