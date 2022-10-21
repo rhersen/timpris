@@ -1,6 +1,9 @@
 <script>
 	export let data;
-	let hour = 0;
+
+	let hour = undefined;
+	const startX = 88;
+	const deltaX = 28;
 	const prices = data.prices.slice(new Date().getHours());
 
 	function y(value) {
@@ -14,7 +17,8 @@
 	<svg
 		viewBox="0 0 804 804"
 		on:mousedown={function (evt) {
-			hour = Math.round(evt.offsetX / 30 - 2.5);
+			hour = Math.round(evt.offsetX / deltaX - startX / deltaX);
+			if (!prices[hour]) hour = undefined;
 		}}
 	>
 		{#each Array.from({ length: 10 }) as u, i}
@@ -26,8 +30,8 @@
 			{#if i > 0}
 				<line
 					class="connect"
-					x1={75 + 30 * (i - 1)}
-					x2={75 + 30 * i}
+					x1={startX + deltaX * (i - 1)}
+					x2={startX + deltaX * i}
 					y1={y(prices[i - 1].value)}
 					y2={y(value)}
 				/>
@@ -35,14 +39,19 @@
 		{/each}
 
 		{#each prices as { color, day, fromHour, toHour, value }, i}
-			<circle cx={75 + 30 * i} cy={y(value)} r="8" fill={color} />
+			<circle cx={startX + deltaX * i} cy={y(value)} r="8" fill={color} />
 		{/each}
 
-		<g class="tooltip" transform={`translate(${65 + (hour - 1) * 30},${680 - prices[hour].value})`}>
-			<polygon class="bg" points="0,48 32,48 40,64 48,48 80,48 80,0 0,0" />
-			<text x="40" y={20}>{prices[hour].fromHour}–{prices[hour].toHour}</text>
-			<text x="40" y={40}>{prices[hour].value} öre</text>
-		</g>
+		{#if hour !== undefined}
+			<g
+				class="tooltip"
+				transform={`translate(${startX + hour * deltaX},${680 - prices[hour].value})`}
+			>
+				<polygon class="bg" points="-40,48 -8,48 0,64 8,48 40,48 40,0 -40,0" />
+				<text y={20}>{prices[hour].fromHour}–{prices[hour].toHour}</text>
+				<text y={40}>{prices[hour].value} öre</text>
+			</g>
+		{/if}
 	</svg>
 </div>
 
