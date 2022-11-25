@@ -16,16 +16,14 @@ export function storuman(jsons) {
 	};
 }
 
-export function vattenfall(json) {
-	const nonzero = json.filter(({ Value }) => Value);
-	const hours = nonzero.map(({ TimeStamp }) => TimeStamp.substring(11, 13));
+export function vg(json) {
 	return {
-		prices: nonzero.map(({ TimeStamp, Value }, i) => ({
-			color: color(Value),
-			day: TimeStamp.substring(0, 10),
-			fromHour: hours[i],
-			toHour: hours[i + 1] ?? '24',
-			value: Value
+		prices: json.timeseries.rows.map(([day, hour, , , value]) => ({
+			color: color(value),
+			day,
+			fromHour: hour.slice(0, 2),
+			toHour: hour.slice(3) === '00' ? '24' : hour.slice(3),
+			value
 		}))
 	};
 }

@@ -1,4 +1,4 @@
-import { storuman, vattenfall } from '$lib/transform.js';
+import { storuman, vg } from '$lib/transform.js';
 
 const HOURS = 60 * 60 * 1000;
 const dateTimeFormat = new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short' });
@@ -16,11 +16,11 @@ export async function load() {
 		return storuman(await Promise.all([todayResponse, tomorrowResponse].map((rsp) => rsp.json())));
 	}
 
-	console.log('fetching vattenfall');
-	const response = await fetch(vattenfallUrl(today, tomorrow));
-	if (response.ok) return vattenfall(await response.json());
+	console.log('fetching vg');
+	const response = await fetch(vgUrl(today, tomorrow));
+	if (response.ok) return vg(await response.json());
 
-	console.log('vattenfall not ok, fetching storuman/today');
+	console.log('vg not ok, fetching storuman/today');
 	return storuman(await Promise.all([await fetch(storumanUrl(today))].map((rsp) => rsp.json())));
 }
 
@@ -28,6 +28,6 @@ function storumanUrl(date) {
 	return `https://www.storumanenergi.se/net.seab.jsonproxy/spotprices.jsp?elarea=SE3&date=${date}`;
 }
 
-function vattenfallUrl(today, tomorrow) {
-	return `https://www.vattenfall.se/api/price/spot/pricearea/${today}/${tomorrow}/SN3`;
+function vgUrl(today) {
+	return `https://redutv-api.vg.no/power-data/v1/nordpool/price/${today}/se`;
 }
