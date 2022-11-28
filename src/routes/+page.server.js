@@ -1,10 +1,8 @@
 import { eliq, vg } from '$lib/transform.js';
 
 export async function load({ url }) {
-	console.log(url);
 	const day = url.searchParams.get('day');
 
-	console.log('fetching vg');
 	const vgResponse = await fetch(vgUrl(day));
 	const eliqResponse = await fetch(eliqUrl(day));
 	if (vgResponse.ok && eliqResponse.ok) {
@@ -31,7 +29,5 @@ function vgUrl(day) {
 }
 
 function eliqUrl(day) {
-	const accesstoken = 'accesstoken';
-	const channelid = 'channelid';
-	return `https://my.eliq.io/api/data?accesstoken=${accesstoken}&startdate=${day}&intervaltype=hour&channelid=${channelid}`;
+	return `https://my.eliq.io/api/data?accesstoken=${process.env.ACCESS_TOKEN}&startdate=${day}&intervaltype=hour`;
 }
