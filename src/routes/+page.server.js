@@ -1,17 +1,37 @@
-import { vg } from '$lib/transform.js';
+import { eliq, vg } from '$lib/transform.js';
 
-const HOURS = 60 * 60 * 1000;
-const dateTimeFormat = new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short' });
-
-export async function load() {
-	const today = dateTimeFormat.format(Date.now());
-	const tomorrow = dateTimeFormat.format(Date.now() + 24 * HOURS);
+export async function load({ url }) {
+	console.log(url);
+	const day = url.searchParams.get('day');
 
 	console.log('fetching vg');
-	const response = await fetch(vgUrl(today, tomorrow));
-	if (response.ok) return vg(await response.json());
+	const vgResponse = await fetch(vgUrl(day));
+	const eliqResponse = await fetch(eliqUrl(day));
+	if (vgResponse.ok && eliqResponse.ok) {
+		const { prices } = vg(await vgResponse.json());
+		const { wattHours } = eliq(await eliqResponse.json());
+		const values = Object.entries(prices)
+			.map(([key, value]) => ({ ...wattHours[key], ...value }))
+			.map((obj) => ({
+				...obj,
+				cost: obj.price * 1e-2 * obj.wattHours * 1e-3
+			}));
+		return {
+			day,
+			cost: values.map(({ cost }) => cost).reduce((a, b) => a + b),
+			averagePrice: values.map(({ price }) => price).reduce((a, b) => a + b) / values.length,
+			wattHours: values.map(({ wattHours }) => wattHours).reduce((a, b) => a + b),
+			values
+		};
+	}
 }
 
-function vgUrl(today) {
-	return `https://redutv-api.vg.no/power-data/v1/nordpool/price/${today}/se`;
+function vgUrl(day) {
+	return `https://redutv-api.vg.no/power-data/v1/nordpool/price/${day}/se`;
+}
+
+function eliqUrl(day) {
+	const accesstoken = 'accesstoken';
+	const channelid = 'channelid';
+	return `https://my.eliq.io/api/data?accesstoken=${accesstoken}&startdate=${day}&intervaltype=hour&channelid=${channelid}`;
 }

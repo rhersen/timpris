@@ -1,4 +1,4 @@
-export function color(price) {
+export function price(price) {
 	let deg;
 	if (price < 25) deg = 150;
 	else if (price < 50) deg = 120;
@@ -11,17 +11,28 @@ export function color(price) {
 	return `hsl(${deg}deg 100% 65%)`;
 }
 
-export function today(then) {
-	const now = new Date().toLocaleDateString().substring(0, 10);
-	if (then < now) return 'igår';
-	if (then > now) return 'imorgon';
-	return 'idag';
+export function wattHours(price) {
+	let deg;
+	if (price < 250) deg = 150;
+	else if (price < 500) deg = 120;
+	else if (price < 1000) deg = 90;
+	else if (price < 2000) deg = 60;
+	else if (price < 4000) deg = 30;
+	else if (price < 8000) deg = 0;
+	else deg = -30;
+
+	return `hsl(${deg}deg 100% 65%)`;
 }
 
-export function current(then, hour) {
-	const now = new Date();
-	const today = now.toLocaleDateString();
-	if (then < today) return false;
-	if (then > today) return false;
-	return hour === now.toLocaleTimeString().substring(0, 2);
+export function cost(price) {
+	let deg;
+	if (price < 0.25) deg = 150;
+	else if (price < 0.5) deg = 120;
+	else if (price < 1) deg = 90;
+	else if (price < 2) deg = 60;
+	else if (price < 4) deg = 30;
+	else if (price < 8) deg = 0;
+	else deg = -30;
+
+	return `hsl(${deg}deg 100% 65%)`;
 }

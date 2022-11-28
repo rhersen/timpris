@@ -1,4 +1,4 @@
-import { vg } from '$lib/transform.js';
+import { eliq, vg } from '$lib/transform.js';
 import { describe, expect, it } from 'vitest';
 
 describe('transform', () => {
@@ -40,32 +40,386 @@ describe('transform', () => {
 					}
 				})
 			).toEqual({
-				prices: [
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '00', toHour: '01', value: -0.42 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '01', toHour: '02', value: -1.03 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '02', toHour: '03', value: -1.07 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '03', toHour: '04', value: -0.56 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '04', toHour: '05', value: -0.1 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '05', toHour: '06', value: 0.63 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '06', toHour: '07', value: 4.63 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '07', toHour: '08', value: 11.05 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '08', toHour: '09', value: 14.21 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '09', toHour: '10', value: 14.11 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '10', toHour: '11', value: 12.06 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '11', toHour: '12', value: 9.69 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '12', toHour: '13', value: 6.16 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '13', toHour: '14', value: 4.76 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '14', toHour: '15', value: 4.28 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '15', toHour: '16', value: 4.72 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '16', toHour: '17', value: 4.51 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '17', toHour: '18', value: 7.21 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '18', toHour: '19', value: 5.94 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '19', toHour: '20', value: 5.51 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '20', toHour: '21', value: 3.58 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '21', toHour: '22', value: 1.59 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '22', toHour: '23', value: 0.1 },
-					{ color: 'hsl(150deg 100% 65%)', day: '2022-10-06', fromHour: '23', toHour: '24', value: -0.05 }
-				]
+				prices: {
+					'2022-10-06T00:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '00',
+						toHour: '01',
+						value: -0.42
+					},
+					'2022-10-06T01:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '01',
+						toHour: '02',
+						value: -1.03
+					},
+					'2022-10-06T02:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '02',
+						toHour: '03',
+						value: -1.07
+					},
+					'2022-10-06T03:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '03',
+						toHour: '04',
+						value: -0.56
+					},
+					'2022-10-06T04:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '04',
+						toHour: '05',
+						value: -0.1
+					},
+					'2022-10-06T05:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '05',
+						toHour: '06',
+						value: 0.63
+					},
+					'2022-10-06T06:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '06',
+						toHour: '07',
+						value: 4.63
+					},
+					'2022-10-06T07:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '07',
+						toHour: '08',
+						value: 11.05
+					},
+					'2022-10-06T08:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '08',
+						toHour: '09',
+						value: 14.21
+					},
+					'2022-10-06T09:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '09',
+						toHour: '10',
+						value: 14.11
+					},
+					'2022-10-06T10:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '10',
+						toHour: '11',
+						value: 12.06
+					},
+					'2022-10-06T11:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '11',
+						toHour: '12',
+						value: 9.69
+					},
+					'2022-10-06T12:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '12',
+						toHour: '13',
+						value: 6.16
+					},
+					'2022-10-06T13:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '13',
+						toHour: '14',
+						value: 4.76
+					},
+					'2022-10-06T14:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '14',
+						toHour: '15',
+						value: 4.28
+					},
+					'2022-10-06T15:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '15',
+						toHour: '16',
+						value: 4.72
+					},
+					'2022-10-06T16:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '16',
+						toHour: '17',
+						value: 4.51
+					},
+					'2022-10-06T17:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '17',
+						toHour: '18',
+						value: 7.21
+					},
+					'2022-10-06T18:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '18',
+						toHour: '19',
+						value: 5.94
+					},
+					'2022-10-06T19:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '19',
+						toHour: '20',
+						value: 5.51
+					},
+					'2022-10-06T20:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '20',
+						toHour: '21',
+						value: 3.58
+					},
+					'2022-10-06T21:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '21',
+						toHour: '22',
+						value: 1.59
+					},
+					'2022-10-06T22:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '22',
+						toHour: '23',
+						value: 0.1
+					},
+					'2022-10-06T23:00:00': {
+						color: 'hsl(150deg 100% 65%)',
+						day: '2022-10-06',
+						fromHour: '23',
+						toHour: '24',
+						value: -0.05
+					}
+				}
+			});
+		});
+	});
+
+	describe('eliq', () => {
+		it('works', () => {
+			expect(
+				eliq({
+					channelid: 3415986,
+					startdate: '2022-11-14T00:00:00',
+					enddate: '2022-11-15T00:00:00',
+					intervaltype: 'hour',
+					data: [
+						{
+							avgpower: 2295.8554443359376,
+							energy: 2295.855442047119,
+							temp_out: null,
+							time_start: '2022-11-14T00:00:00',
+							time_end: '2022-11-14T01:00:00'
+						},
+						{
+							avgpower: 1932.5155517578125,
+							energy: 1932.5155563354492,
+							temp_out: null,
+							time_start: '2022-11-14T01:00:00',
+							time_end: '2022-11-14T02:00:00'
+						},
+						{
+							avgpower: 1803.8830688476562,
+							energy: 1803.883071899414,
+							temp_out: null,
+							time_start: '2022-11-14T02:00:00',
+							time_end: '2022-11-14T03:00:00'
+						},
+						{
+							avgpower: 3040.3038696289063,
+							energy: 3040.303871154785,
+							temp_out: null,
+							time_start: '2022-11-14T03:00:00',
+							time_end: '2022-11-14T04:00:00'
+						},
+						{
+							avgpower: 884.0582214355469,
+							energy: 884.058219909668,
+							temp_out: null,
+							time_start: '2022-11-14T04:00:00',
+							time_end: '2022-11-14T05:00:00'
+						},
+						{
+							avgpower: 988.1172180175781,
+							energy: 988.1172180175781,
+							temp_out: null,
+							time_start: '2022-11-14T05:00:00',
+							time_end: '2022-11-14T06:00:00'
+						},
+						{
+							avgpower: 2619.5169311523437,
+							energy: 2619.516929626465,
+							temp_out: null,
+							time_start: '2022-11-14T06:00:00',
+							time_end: '2022-11-14T07:00:00'
+						},
+						{
+							avgpower: 2368.0400268554686,
+							energy: 2368.040023803711,
+							temp_out: null,
+							time_start: '2022-11-14T07:00:00',
+							time_end: '2022-11-14T08:00:00'
+						},
+						{
+							avgpower: 458.12263946533204,
+							energy: 458.1226444244385,
+							temp_out: null,
+							time_start: '2022-11-14T08:00:00',
+							time_end: '2022-11-14T09:00:00'
+						},
+						{
+							avgpower: 493.2234222412109,
+							energy: 493.22342109680176,
+							temp_out: null,
+							time_start: '2022-11-14T09:00:00',
+							time_end: '2022-11-14T10:00:00'
+						},
+						{
+							avgpower: 541.4560699462891,
+							energy: 541.4560680389404,
+							temp_out: null,
+							time_start: '2022-11-14T10:00:00',
+							time_end: '2022-11-14T11:00:00'
+						},
+						{
+							avgpower: 408.9076904296875,
+							energy: 408.9076900482178,
+							temp_out: null,
+							time_start: '2022-11-14T11:00:00',
+							time_end: '2022-11-14T12:00:00'
+						},
+						{
+							avgpower: 588.403076171875,
+							energy: 588.403076171875,
+							temp_out: null,
+							time_start: '2022-11-14T12:00:00',
+							time_end: '2022-11-14T13:00:00'
+						},
+						{
+							avgpower: 623.32294921875,
+							energy: 623.3229465484619,
+							temp_out: null,
+							time_start: '2022-11-14T13:00:00',
+							time_end: '2022-11-14T14:00:00'
+						},
+						{
+							avgpower: 497.5911071777344,
+							energy: 497.5911045074463,
+							temp_out: null,
+							time_start: '2022-11-14T14:00:00',
+							time_end: '2022-11-14T15:00:00'
+						},
+						{
+							avgpower: 801.6092376708984,
+							energy: 801.6092433929443,
+							temp_out: null,
+							time_start: '2022-11-14T15:00:00',
+							time_end: '2022-11-14T16:00:00'
+						},
+						{
+							avgpower: 1210.4731750488281,
+							energy: 1210.4731750488281,
+							temp_out: null,
+							time_start: '2022-11-14T16:00:00',
+							time_end: '2022-11-14T17:00:00'
+						},
+						{
+							avgpower: 733.404345703125,
+							energy: 733.4043426513672,
+							temp_out: null,
+							time_start: '2022-11-14T17:00:00',
+							time_end: '2022-11-14T18:00:00'
+						},
+						{
+							avgpower: 686.7517944335938,
+							energy: 686.7517967224121,
+							temp_out: null,
+							time_start: '2022-11-14T18:00:00',
+							time_end: '2022-11-14T19:00:00'
+						},
+						{
+							avgpower: 854.1292266845703,
+							energy: 854.1292266845703,
+							temp_out: null,
+							time_start: '2022-11-14T19:00:00',
+							time_end: '2022-11-14T20:00:00'
+						},
+						{
+							avgpower: 739.6844421386719,
+							energy: 739.684440612793,
+							temp_out: null,
+							time_start: '2022-11-14T20:00:00',
+							time_end: '2022-11-14T21:00:00'
+						},
+						{
+							avgpower: 1308.20615234375,
+							energy: 1308.2061462402344,
+							temp_out: null,
+							time_start: '2022-11-14T21:00:00',
+							time_end: '2022-11-14T22:00:00'
+						},
+						{
+							avgpower: 3777.6256408691406,
+							energy: 3777.6256256103516,
+							temp_out: null,
+							time_start: '2022-11-14T22:00:00',
+							time_end: '2022-11-14T23:00:00'
+						},
+						{
+							avgpower: 3405.178747558594,
+							energy: 3405.1787643432617,
+							temp_out: null,
+							time_start: '2022-11-14T23:00:00',
+							time_end: '2022-11-15T00:00:00'
+						}
+					]
+				})
+			).toEqual({
+				wattHours: {
+					'2022-11-14T00:00:00': { day: '2022-11-14', fromHour: '00', toHour: '01', value: 2295.855442047119 },
+					'2022-11-14T01:00:00': { day: '2022-11-14', fromHour: '01', toHour: '02', value: 1932.5155563354492 },
+					'2022-11-14T02:00:00': { day: '2022-11-14', fromHour: '02', toHour: '03', value: 1803.883071899414 },
+					'2022-11-14T03:00:00': { day: '2022-11-14', fromHour: '03', toHour: '04', value: 3040.303871154785 },
+					'2022-11-14T04:00:00': { day: '2022-11-14', fromHour: '04', toHour: '05', value: 884.058219909668 },
+					'2022-11-14T05:00:00': { day: '2022-11-14', fromHour: '05', toHour: '06', value: 988.1172180175781 },
+					'2022-11-14T06:00:00': { day: '2022-11-14', fromHour: '06', toHour: '07', value: 2619.516929626465 },
+					'2022-11-14T07:00:00': { day: '2022-11-14', fromHour: '07', toHour: '08', value: 2368.040023803711 },
+					'2022-11-14T08:00:00': { day: '2022-11-14', fromHour: '08', toHour: '09', value: 458.1226444244385 },
+					'2022-11-14T09:00:00': { day: '2022-11-14', fromHour: '09', toHour: '10', value: 493.22342109680176 },
+					'2022-11-14T10:00:00': { day: '2022-11-14', fromHour: '10', toHour: '11', value: 541.4560680389404 },
+					'2022-11-14T11:00:00': { day: '2022-11-14', fromHour: '11', toHour: '12', value: 408.9076900482178 },
+					'2022-11-14T12:00:00': { day: '2022-11-14', fromHour: '12', toHour: '13', value: 588.403076171875 },
+					'2022-11-14T13:00:00': { day: '2022-11-14', fromHour: '13', toHour: '14', value: 623.3229465484619 },
+					'2022-11-14T14:00:00': { day: '2022-11-14', fromHour: '14', toHour: '15', value: 497.5911045074463 },
+					'2022-11-14T15:00:00': { day: '2022-11-14', fromHour: '15', toHour: '16', value: 801.6092433929443 },
+					'2022-11-14T16:00:00': { day: '2022-11-14', fromHour: '16', toHour: '17', value: 1210.4731750488281 },
+					'2022-11-14T17:00:00': { day: '2022-11-14', fromHour: '17', toHour: '18', value: 733.4043426513672 },
+					'2022-11-14T18:00:00': { day: '2022-11-14', fromHour: '18', toHour: '19', value: 686.7517967224121 },
+					'2022-11-14T19:00:00': { day: '2022-11-14', fromHour: '19', toHour: '20', value: 854.1292266845703 },
+					'2022-11-14T20:00:00': { day: '2022-11-14', fromHour: '20', toHour: '21', value: 739.684440612793 },
+					'2022-11-14T21:00:00': { day: '2022-11-14', fromHour: '21', toHour: '22', value: 1308.2061462402344 },
+					'2022-11-14T22:00:00': { day: '2022-11-14', fromHour: '22', toHour: '23', value: 3777.6256256103516 },
+					'2022-11-14T23:00:00': { day: '2022-11-14', fromHour: '23', toHour: '24', value: 3405.1787643432617 }
+				}
 			});
 		});
 	});
