@@ -2,6 +2,7 @@ import { eliq, vg } from '$lib/transform.js';
 
 export async function load({ url }) {
 	const day = url.searchParams.get('day');
+	if (!day) return { day: undefined, values: [] };
 
 	const vgResponse = await fetch(vgUrl(day));
 	const eliqResponse = await fetch(eliqUrl(day));

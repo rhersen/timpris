@@ -4,6 +4,9 @@
 </script>
 
 <div>
+	{#if !data.day}
+		<a href="?day={new Date().toISOString().slice(0, 10)}">idag</a>
+	{/if}
 	<h1>Elpris per timme {data.day}</h1>
 	<table>
 		<tr>
